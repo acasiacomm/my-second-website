@@ -47,16 +47,6 @@
       transform: translateY(-3px);
     }
 
-    .software img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 10px;
-      /* 移除原本的 PNG 來源，改為空白或預設圖片 */
-      background-color: #ccc;
-    }
-
     .software h2 {
       margin: 0 0 10px 0;
       font-size: 1.3em;
@@ -86,12 +76,7 @@
     /* 響應式 */
     @media (min-width: 600px) {
       .software {
-        flex-direction: row;
-        align-items: center;
-      }
-      .software img {
-        margin-right: 20px;
-        margin-bottom: 0;
+        flex-direction: column; /* 移除 img 後改為直列即可 */
       }
       .software div {
         flex: 1;
@@ -117,7 +102,6 @@
 
   <main>
     <div class="software">
-      <img alt="Android遊戲">
       <div>
         <h2>🔹 象棋遊戲</h2>
         <p>中國象棋不僅考驗邏輯和計算能力，還能提升戰略思維和耐心。對新手來說，先熟悉棋子走法和簡單開局就能開始對弈。</p>
@@ -126,7 +110,6 @@
     </div>
 
     <div class="software">
-      <img alt="軟體名稱二">
       <div>
         <h2>🔹 軟體名稱二</h2>
         <p>軟體開發中</p>
@@ -135,7 +118,6 @@
     </div>
 
     <div class="software">
-      <img alt="軟體名稱三">
       <div>
         <h2>🔹 軟體名稱三</h2>
         <p>軟體開發中</p>
