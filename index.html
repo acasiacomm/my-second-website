@@ -2,62 +2,134 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>軟體下載站</title>
   <style>
+    /* 全局設定 */
     body {
       font-family: Arial, "Microsoft JhengHei", sans-serif;
-      background-color: #f5f5f5;
-      padding: 20px;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
-      color: #333;
-    }
-    .software {
-      background: #ffffff;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 8px;
-    }
-    .software h2 {
-      margin-top: 0;
-    }
-    .download {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 12px;
+    header {
       background-color: #007bff;
       color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+    header p {
+      margin: 5px 0 0 0;
+      font-size: 1em;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 20px auto;
+      padding: 0 15px;
+    }
+
+    .software {
+      display: flex;
+      flex-direction: column;
+      background-color: #ffffff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .software:hover {
+      transform: translateY(-3px);
+    }
+
+    .software img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .software h2 {
+      margin: 0 0 10px 0;
+      font-size: 1.3em;
+      color: #333;
+    }
+
+    .software p {
+      margin: 0 0 10px 0;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .download {
+      display: inline-block;
+      padding: 10px 18px;
+      background-color: #28a745;
+      color: white;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.2s;
     }
     .download:hover {
-      background-color: #0056b3;
+      background-color: #218838;
+    }
+
+    /* 響應式 */
+    @media (min-width: 600px) {
+      .software {
+        flex-direction: row;
+        align-items: center;
+      }
+      .software img {
+        margin-right: 20px;
+        margin-bottom: 0;
+      }
+      .software div {
+        flex: 1;
+      }
     }
   </style>
 </head>
 <body>
+  <header>
+    <h1>📦 我的軟體下載站</h1>
+    <p>提供各類實用軟體，免費下載使用</p>
+  </header>
 
-  <h1>📦 我的軟體下載區</h1>
-  <p>這裡提供我製作的軟體，歡迎下載使用。</p>
+  <main>
+    <div class="software">
+      <img src="software1.png" alt="軟體名稱一">
+      <div>
+        <h2>🔹 我的手機遊戲</h2>
+        <p>這是一個安著手機象棋遊戲</p>
+        <a class="download" href="https://github.com/acasiacomm/mygame/releases/download/v1.0.0/app-release.apk" download>⬇ 下載</a>
+      </div>
+    </div>
 
-  <div class="software">
-    <h2>🔹 軟體名稱一</h2>
-    <p>這是一個用來做 XXX 的工具，操作簡單、速度快。</p>
-    <a class="download" href="下載連結放這裡">⬇ 下載</a>
-  </div>
+    <div class="software">
+      <img src="software2.png" alt="軟體名稱二">
+      <div>
+        <h2>🔹 軟體名稱二</h2>
+        <p>軟體開發中</p>
+        <a class="download" href="software2.zip" download>⬇ 下載</a>
+      </div>
+    </div>
 
-  <div class="software">
-    <h2>🔹 軟體名稱二</h2>
-    <p>這個軟體可以幫助你完成 XXX 功能。</p>
-    <a class="download" href="下載連結放這裡">⬇ 下載</a>
-  </div>
-
-  <div class="software">
-    <h2>🔹 軟體名稱三</h2>
-    <p>適合用在 XXX 的情境，免費使用。</p>
-    <a class="download" href="下載連結放這裡">⬇ 下載</a>
-  </div>
-
+    <div class="software">
+      <img src="software3.png" alt="軟體名稱三">
+      <div>
+        <h2>🔹 軟體名稱三</h2>
+        <p>軟體開發中</p>
+        <a class="download" href="software3.zip" download>⬇ 下載</a>
+      </div>
+    </div>
+  </main>
 </body>
 </html>
-
