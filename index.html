@@ -101,13 +101,46 @@
       box-shadow: 0 0 15px #00f2ff;
     }
 
+    /* 自我介紹樣式 */
+    .about-me {
+      max-width: 1000px;
+      margin: 60px auto 20px;
+      padding: 30px;
+      background: linear-gradient(180deg, #161b22 0%, #0b0e14 100%);
+      border-radius: 15px;
+      border: 1px dashed #00f2ff;
+      text-align: center;
+    }
+
+    .about-me h3 {
+      color: #00f2ff;
+      margin-top: 0;
+      font-size: 1.8em;
+    }
+
+    .skills {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .skill-tag {
+      background: rgba(0, 242, 255, 0.1);
+      padding: 8px 20px;
+      border-radius: 5px;
+      border: 1px solid #00f2ff;
+      font-weight: bold;
+      color: #fff;
+    }
+
     footer {
       text-align: center;
       padding: 30px 0;
       color: #555;
       font-size: 0.9em;
       border-top: 1px solid #161b22;
-      margin-top: 50px;
       background-color: #0b0e14;
     }
   </style>
@@ -119,7 +152,6 @@
   </header>
 
   <main>
-
     <div class="software">
       <div class="software-content">
         <h2>🔹 Android Benny彩卷預測系統</h2>
@@ -185,6 +217,16 @@
     </div>
     
   </main>
+
+  <section class="about-me">
+    <h3>👨‍💻 關於開發者</h3>
+    <p>你好！我是 Benny。我熱衷於探索虛擬與現實的邊界，專注於 3D 渲染與遊戲引擎技術。</p>
+    <div class="skills">
+      <div class="skill-tag">Three.js</div>
+      <div class="skill-tag">Unity</div>
+      <div class="skill-tag">Unreal Engine</div>
+    </div>
+  </section>
 
   <footer>
     © 2026 Benny 版權所有 | 每10分鐘產出一個手機軟體
