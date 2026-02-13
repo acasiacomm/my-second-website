@@ -46,8 +46,6 @@
 
     /* 軟體卡片 - 科技感邊框與懸停效果 */
     .software {
-      display: flex;
-      flex-direction: column;
       background-color: #161b22;
       padding: 25px;
       margin-bottom: 30px;
@@ -63,17 +61,6 @@
       transform: translateY(-5px);
       border-color: #00f2ff;
       box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-    }
-
-    /* 圖片樣式設定 */
-    .software-img {
-      width: 100%;
-      max-width: 400px; /* 控制圖片最大寬度 */
-      height: auto;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      border: 1px solid #30363d;
-      display: block;
     }
 
     .software-content {
@@ -114,19 +101,6 @@
       box-shadow: 0 0 15px #00f2ff;
     }
 
-    /* 響應式佈局：大螢幕時圖文並排 */
-    @media (min-width: 768px) {
-      .software {
-        flex-direction: row; /* 橫向排列 */
-        align-items: center;
-        gap: 25px;
-      }
-      .software-img {
-        width: 300px; /* 固定大螢幕下的圖片寬度 */
-        margin-bottom: 0;
-      }
-    }
-
     footer {
       text-align: center;
       padding: 30px 0;
@@ -147,7 +121,6 @@
   <main>
 
     <div class="software">
-      <img src="https://via.placeholder.com/300x200?text=App+Screenshot" alt="預覽圖" class="software-img">
       <div class="software-content">
         <h2>🔹 Android Benny彩卷預測系統</h2>
         <p>Android手機安裝，使用過去彩券開獎結果的大數據進行A.I 人工智能分析預測結果。</p>
@@ -156,7 +129,6 @@
     </div>
     
     <div class="software">
-      <img src="https://via.placeholder.com/300x200?text=Chess+Game" alt="預覽圖" class="software-img">
       <div class="software-content">
         <h2>🔹 Android Benny象棋</h2>
         <p>Android手機安裝， 象棋棋盤如沙場，對弈雙方需要在有限的空間內，透過深思熟慮的佈局和精密的計算。</p>
