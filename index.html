@@ -3,175 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>benny軟體下載站</title>
+  <title>Benny 科技軟體下載站</title>
   <style>
+    /* 科技感深色背景與字體 */
     body {
-      font-family: Arial, "Microsoft JhengHei", sans-serif;
-      background-color: #f0f2f5;
+      font-family: "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
+      background-color: #0b0e14; /* 深色背景 */
+      color: #e0e0e0;
       margin: 0;
       padding: 0;
+      line-height: 1.6;
     }
+
+    /* 頂部標頭 - 漸層與光暈 */
     header {
-      background-color: #007bff;
+      background: linear-gradient(135deg, #001f3f 0%, #007bff 100%);
       color: white;
-      padding: 20px;
+      padding: 40px 20px;
       text-align: center;
+      border-bottom: 3px solid #00f2ff;
+      box-shadow: 0 5px 20px rgba(0, 242, 255, 0.2);
     }
+
     header h1 {
       margin: 0;
-      font-size: 1.8em;
+      font-size: 2.2em;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
     }
+
     header p {
-      margin: 5px 0 0 0;
-      font-size: 1em;
+      margin: 10px 0 0 0;
+      opacity: 0.8;
+      font-weight: 300;
     }
 
     main {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 0 15px;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
 
+    /* 軟體卡片 - 科技感邊框與懸停效果 */
     .software {
       display: flex;
       flex-direction: column;
-      background-color: #ffffff;
-      padding: 15px;
-      margin-bottom: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      background-color: #161b22;
+      padding: 25px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      border: 1px solid #30363d;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
+
     .software:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      border-color: #00f2ff;
+      box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+    }
+
+    /* 圖片樣式設定 */
+    .software-img {
+      width: 100%;
+      max-width: 400px; /* 控制圖片最大寬度 */
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #30363d;
+      display: block;
+    }
+
+    .software-content {
+      flex: 1;
     }
 
     .software h2 {
-      margin: 0 0 10px 0;
-      font-size: 1.3em;
-      color: #333;
+      margin: 0 0 15px 0;
+      font-size: 1.5em;
+      color: #00f2ff; /* 螢光藍標題 */
+      display: flex;
+      align-items: center;
     }
 
     .software p {
-      margin: 0 0 10px 0;
-      color: #555;
-      line-height: 1.5;
+      margin: 0 0 20px 0;
+      color: #b1b1b1;
     }
 
+    /* 下載按鈕 - 霓虹感 */
     .download {
       display: inline-block;
-      padding: 10px 18px;
-      background-color: #28a745;
-      color: white;
+      padding: 12px 25px;
+      background-color: transparent;
+      color: #00f2ff;
       text-decoration: none;
-      border-radius: 6px;
+      border: 2px solid #00f2ff;
+      border-radius: 50px;
       font-weight: bold;
-      transition: background-color 0.2s;
-    }
-    .download:hover {
-      background-color: #218838;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    @media (min-width: 600px) {
+    .download:hover {
+      background-color: #00f2ff;
+      color: #0b0e14;
+      box-shadow: 0 0 15px #00f2ff;
+    }
+
+    /* 響應式佈局：大螢幕時圖文並排 */
+    @media (min-width: 768px) {
       .software {
-        flex-direction: column;
+        flex-direction: row; /* 橫向排列 */
+        align-items: center;
+        gap: 25px;
       }
-      .software div {
-        flex: 1;
+      .software-img {
+        width: 300px; /* 固定大螢幕下的圖片寬度 */
+        margin-bottom: 0;
       }
     }
 
     footer {
       text-align: center;
-      padding: 15px 0;
-      background-color: #f0f2f5;
-      color: #777;
+      padding: 30px 0;
+      color: #555;
       font-size: 0.9em;
-      border-top: 1px solid #ddd;
-      margin-top: 30px;
+      border-top: 1px solid #161b22;
+      margin-top: 50px;
+      background-color: #0b0e14;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📦 Benny的軟體下載站</h1>
-    <p>提供各類實用軟體，免費下載使用</p>
+    <h1>🚀 BENNY TECH HUB</h1>
+    <p>未來感軟體開發與大數據分析站點</p>
   </header>
 
   <main>
 
- <div class="software">
-      <div>
+    <div class="software">
+      <img src="https://via.placeholder.com/300x200?text=App+Screenshot" alt="預覽圖" class="software-img">
+      <div class="software-content">
         <h2>🔹 Android Benny彩卷預測系統</h2>
         <p>Android手機安裝，使用過去彩券開獎結果的大數據進行A.I 人工智能分析預測結果。</p>
-        <a class="download" href="https://github.com/acasiacomm/Benny-Number-Prediction-System/raw/refs/heads/main/88888.apk" download>⬇ 下載</a>
+        <a class="download" href="https://github.com/acasiacomm/Benny-Number-Prediction-System/raw/refs/heads/main/88888.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
     
     <div class="software">
-      <div>
+      <img src="https://via.placeholder.com/300x200?text=Chess+Game" alt="預覽圖" class="software-img">
+      <div class="software-content">
         <h2>🔹 Android Benny象棋</h2>
-        <p>Android手機安裝， 象棋棋盤如沙場，對弈雙方需要在有限的空間內，透過深思熟慮的佈局和精密的計算，運用各種戰術來擊敗對手。</p>
-        <a class="download" href="https://github.com/acasiacomm/mygame/releases/download/v1.0.0/app-release.apk" download>⬇ 下載</a>
+        <p>Android手機安裝， 象棋棋盤如沙場，對弈雙方需要在有限的空間內，透過深思熟慮的佈局和精密的計算。</p>
+        <a class="download" href="https://github.com/acasiacomm/mygame/releases/download/v1.0.0/app-release.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
 
     <div class="software">
-      <div>
+      <div class="software-content">
         <h2>🔹 Android Benny羽球輪替系統</h2>
         <p>通用的羽球輪替系統，只適用於 Android 手機安裝</p>
-        <a class="download" href="https://github.com/acasiacomm/Bennys-badminton-racket-is-in-place/raw/refs/heads/main/22222.apk" download>⬇ 下載</a>
+        <a class="download" href="https://github.com/acasiacomm/Bennys-badminton-racket-is-in-place/raw/refs/heads/main/22222.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
 
     <div class="software">
-      <div>
+      <div class="software-content">
         <h2>🔹 Benny基礎電力系統</h2>
         <p>介紹電壓、電流、電阻與功率等電力系統基本概念。</p>
-        <a class="download" href="https://github.com/acasiacomm/Bennys-Basic-Electricity-System/raw/refs/tags/v1.0.0/33333.apk" download>⬇ 下載</a>
+        <a class="download" href="https://github.com/acasiacomm/Bennys-Basic-Electricity-System/raw/refs/tags/v1.0.0/33333.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
 
-    <!-- ✅ 第5個軟體（新增） -->
     <div class="software">
-      <div>
+      <div class="software-content">
         <h2>🔹 Benny 行動電話工程模型</h2>
-        <p>要查詢手機 4G/5G 訊號值與基地台名稱，可透過三大電信（中華、台哥大、遠傳）的官方網站看涵蓋圖，或利用 Android 手機「工程模式」查看詳細訊號資訊（dBm 值），iPhone 則需透過特定 App 或撥打隱藏指令來獲取如 RSRP、SINR 等精確數值；WIFi 訊號則看手機內建功能即可</p>
-        <a class="download" href="https://github.com/acasiacomm/Mobilephone-engineering-model/raw/refs/heads/main/44444.apk" download>⬇ 下載</a>
+        <p>查詢手機 4G/5G 訊號值與基地台名稱，獲取如 RSRP、SINR 等精確數值。</p>
+        <a class="download" href="https://github.com/acasiacomm/Mobilephone-engineering-model/raw/refs/heads/main/44444.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
     
-<!-- ✅ 第6個軟體（新增） -->
     <div class="software">
-      <div>
+      <div class="software-content">
         <h2>🔹 Benny時間相機</h2>
-        <p>在照片/影片上加入時間、日期、地點、GPS座標、地圖、海拔等</p>
-        <a class="download" href="https://github.com/acasiacomm/Benny-Time-Camera/raw/refs/heads/main/55555.apk" download>⬇ 下載</a>
+        <p>在照片/影片上加入時間、日期、地點、GPS座標、地圖、海拔等。</p>
+        <a class="download" href="https://github.com/acasiacomm/Benny-Time-Camera/raw/refs/heads/main/55555.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
 
-<!-- ✅ 第7個軟體（新增） -->
     <div class="software">
-      <div>
+      <div class="software-content">
         <h2>🔹 Benny防火百葉窗計算</h2>
-        <p>消防百葉的尺寸與葉扇通風量計算，核心是根據《各類場所消防安全設備設置標準》與建築技術規則，計算防煙區劃的所需排煙量 (Q)，再結合百葉的有效開口面積 (A)、通風率 (Vlouver)及風速 (V)，確保 \(\text{Q}=\text{A}\times \text{Vlouver}\times \text{V}\) 符合規定，並考量葉片角度、間距、材質，決定百葉的實際尺寸與數量，以達到有效排煙並滿足法規要求的有效開口面積百分比。 </p>
-        <a class="download" href="https://github.com/acasiacomm/Benny-s-Fire-Louver-Calculation/raw/refs/heads/main/66666.apk" download>⬇ 下載</a>
+        <p>消防百葉的尺寸與葉扇通風量計算，符合《各類場所消防安全設備設置標準》。</p>
+        <a class="download" href="https://github.com/acasiacomm/Benny-s-Fire-Louver-Calculation/raw/refs/heads/main/66666.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
 
-    <!-- ✅ 第8個軟體（新增） -->
     <div class="software">
-      <div>
+      <div class="software-content">
         <h2>🔹 Benny國際圍棋</h2>
-        <p>符合國際與日本圍棋的標準規則。其餘 所有功能，職業級 AI、計時賽制、認輸機制 </p>
-        <a class="download" href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" download>⬇ 下載</a>
+        <p>符合國際與日本圍棋的標準規則。職業級 AI、計時賽制、認輸機制。</p>
+        <a class="download" href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
     
   </main>
 
   <footer>
-    © 2026 Benny 版權所有   (每10分鐘可以產出一個手機軟體)
+    © 2026 Benny 版權所有 | 每10分鐘產出一個手機軟體
   </footer>
 </body>
 </html>
