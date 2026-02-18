@@ -19,7 +19,7 @@
     header {
       background: linear-gradient(135deg, #001f3f 0%, #007bff 100%);
       color: white;
-      padding: 40px 20px;
+      padding: 60px 20px;
       text-align: center;
       border-bottom: 3px solid #00f2ff;
       box-shadow: 0 5px 20px rgba(0, 242, 255, 0.2);
@@ -27,34 +27,33 @@
 
     header h1 {
       margin: 0;
-      font-size: 2.2em;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(0, 242, 255, 0.7);
+      font-size: 2.5em;
+      letter-spacing: 3px;
+      text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
     }
 
     header p {
-      margin: 10px 0 0 0;
-      opacity: 0.8;
+      margin: 15px 0 0 0;
+      opacity: 0.9;
       font-weight: 300;
+      font-size: 1.1em;
     }
 
     main {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 40px auto;
       padding: 0 20px;
     }
 
-    /* 軟體卡片 - 科技感邊框與懸停效果 */
+    /* 軟體卡片樣式修正 */
     .software {
       background-color: #161b22;
-      padding: 25px;
+      padding: 30px;
       margin-bottom: 30px;
       border-radius: 15px;
       border: 1px solid #30363d;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
     }
 
     .software:hover {
@@ -63,27 +62,24 @@
       box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
     }
 
-    .software-content {
-      flex: 1;
-    }
-
     .software h2 {
       margin: 0 0 15px 0;
-      font-size: 1.5em;
-      color: #00f2ff; /* 螢光藍標題 */
+      font-size: 1.6em;
+      color: #00f2ff;
       display: flex;
       align-items: center;
     }
 
     .software p {
-      margin: 0 0 20px 0;
+      margin: 0 0 25px 0;
       color: #b1b1b1;
+      font-size: 1.05em;
     }
 
     /* 下載按鈕 - 霓虹感 */
     .download {
       display: inline-block;
-      padding: 12px 25px;
+      padding: 12px 30px;
       background-color: transparent;
       color: #00f2ff;
       text-decoration: none;
@@ -98,14 +94,14 @@
     .download:hover {
       background-color: #00f2ff;
       color: #0b0e14;
-      box-shadow: 0 0 15px #00f2ff;
+      box-shadow: 0 0 20px #00f2ff;
     }
 
     /* 自我介紹樣式 */
     .about-me {
-      max-width: 1000px;
-      margin: 60px auto 20px;
-      padding: 30px;
+      max-width: 900px;
+      margin: 80px auto 40px;
+      padding: 40px;
       background: linear-gradient(180deg, #161b22 0%, #0b0e14 100%);
       border-radius: 15px;
       border: 1px dashed #00f2ff;
@@ -115,15 +111,16 @@
     .about-me h3 {
       color: #00f2ff;
       margin-top: 0;
-      font-size: 1.8em;
+      font-size: 2em;
+      margin-bottom: 20px;
     }
 
     .skills {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
       flex-wrap: wrap;
-      margin-top: 20px;
+      margin-top: 25px;
     }
 
     .skill-tag {
@@ -137,8 +134,8 @@
 
     footer {
       text-align: center;
-      padding: 30px 0;
-      color: #555;
+      padding: 40px 0;
+      color: #777;
       font-size: 0.9em;
       border-top: 1px solid #161b22;
       background-color: #0b0e14;
@@ -146,25 +143,25 @@
   </style>
 </head>
 <body>
+
   <header>
     <h1>🚀 BENNY TECH HUB</h1>
     <p>軟體開發與大數據分析站點</p>
   </header>
 
   <main>
-
- <div class="software">
-
-<div class="software-content">
+    <div class="software">
+      <div class="software-content">
         <h2>🔹 Android 圍棋競賽</h2>
-        <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模」 2026/02/18 Benny版權</p>
+        <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模」。<br><small>2026/02/18 Benny 版權</small></p>
         <a class="download" href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
-   
+
+    <div class="software">
       <div class="software-content">
         <h2>🔹 Android 古典暗棋</h2>
-        <p>中國風棋盤、戰績紀錄與 刪除功能、AI自動對弈 2026/02/17 Benny版權</p>
+        <p>中國風棋盤、戰績紀錄與刪除功能、AI 自動對弈。<br><small>2026/02/17 Benny 版權</small></p>
         <a class="download" href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
@@ -172,27 +169,26 @@
     <div class="software">
       <div class="software-content">
         <h2>🔹 Android 打地鼠大賽</h2>
-        <p>打地鼠大賽是一款經典「打地鼠」玩法的休閒小遊戲，考驗玩家的反應速度、專注力與手眼協調能力。玩家需要在地鼠冒出來的瞬間迅速點擊（或敲擊）它們來得分，隨著難度提升，挑戰也會越來越刺激 2026/02/16 Benny版權</p>
+        <p>打地鼠大賽是一款經典「打地鼠」玩法的休閒小遊戲，考驗玩家的反應速度、專注力與手眼協調能力。隨著難度提升，挑戰也會越來越刺激！<br><small>2026/02/16 Benny 版權</small></p>
         <a class="download" href="https://github.com/acasiacomm/Benny-plays-whack-a-mole/raw/refs/heads/main/99999.apk" download>⬇ DOWNLOAD NOW</a>
       </div>
     </div>
-    
-    
-    
   </main>
 
   <section class="about-me">
-    <h3>關於Benny開發者</h3>
+    <h3>關於 Benny 開發者</h3>
     <p>你好！我是 Benny。熱衷於探索虛擬與現實的邊界，專注於 3D 渲染與遊戲引擎技術。</p>
     <div class="skills">
       <div class="skill-tag">Three.js</div>
       <div class="skill-tag">Unity</div>
       <div class="skill-tag">Unreal Engine</div>
+      <div class="skill-tag">Android Dev</div>
     </div>
   </section>
 
   <footer>
-    © 2026 Benny 版權所有 | 每10分鐘產出一個手機軟體
+    &copy; 2026 Benny 版權所有 | 每 10 分鐘產出一個手機軟體
   </footer>
+
 </body>
 </html>
