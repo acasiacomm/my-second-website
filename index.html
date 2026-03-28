@@ -1,216 +1,448 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Benny 科技軟體下載站</title>
-  <style>
-    /* 科技感深色背景與字體 */
-    body {
-      font-family: "Segoe UI", Roboto, "Microsoft JhengHei", sans-serif;
-      background-color: #0b0e14; /* 深色背景 */
-      color: #e0e0e0;
-      margin: 0;
-      padding: 0;
-      line-height: 1.6;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>軟體資源與生活誌</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b; 
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+        }
 
-    /* 頂部標頭 - 漸層與光暈 */
-    header {
-      background: linear-gradient(135deg, #001f3f 0%, #007bff 100%);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-      border-bottom: 3px solid #00f2ff;
-      box-shadow: 0 5px 20px rgba(0, 242, 255, 0.2);
-    }
+        body {
+            font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-    header h1 {
-      margin: 0;
-      font-size: 2.5em;
-      letter-spacing: 3px;
-      text-shadow: 0 0 15px rgba(0, 242, 255, 0.7);
-    }
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
 
-    header p {
-      margin: 15px 0 0 0;
-      opacity: 0.9;
-      font-weight: 300;
-      font-size: 1.1em;
-    }
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
 
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
+        header h1, header p {
+            position: relative;
+            z-index: 1;
+        }
 
-    /* 軟體卡片樣式修正 */
-    .software {
-      background-color: #161b22;
-      padding: 30px;
-      margin-bottom: 30px;
-      border-radius: 15px;
-      border: 1px solid #30363d;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      transition: all 0.3s ease;
-    }
+        header h1 {
+            margin: 0.5rem 0 0.2rem 0;
+            font-size: 2.2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
 
-    .software:hover {
-      transform: translateY(-5px);
-      border-color: #00f2ff;
-      box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-    }
+        header p {
+            margin: 0;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
 
-    .software h2 {
-      margin: 0 0 15px 0;
-      font-size: 1.6em;
-      color: #00f2ff;
-      display: flex;
-      align-items: center;
-    }
+        .container {
+            max-width: 1600px; 
+            margin: 1.5rem auto;
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 1.5rem;
+            padding: 0 1.5rem;
+        }
 
-    .software p {
-      margin: 0 0 25px 0;
-      color: #b1b1b1;
-      font-size: 1.05em;
-    }
+        .art-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
 
-    /* 下載按鈕 - 霓虹感 */
-    .download {
-      display: inline-block;
-      padding: 12px 30px;
-      background-color: transparent;
-      color: #00f2ff;
-      text-decoration: none;
-      border: 2px solid #00f2ff;
-      border-radius: 50px;
-      font-weight: bold;
-      transition: all 0.3s;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-right: 10px;
-    }
+        .art-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
 
-    .download:hover {
-      background-color: #00f2ff;
-      color: #0b0e14;
-      box-shadow: 0 0 20px #00f2ff;
-    }
+        .app-header-flex {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
 
-    /* 隱私權政策連結樣式 */
-    .policy-link {
-      display: inline-block;
-      color: #888;
-      text-decoration: none;
-      font-size: 0.9em;
-      border-bottom: 1px solid transparent;
-      transition: all 0.3s;
-    }
+        .card-bg-anim {
+            width: 60px;
+            height: 60px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            background: rgba(226, 232, 240, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
 
-    .policy-link:hover {
-      color: #00f2ff;
-      border-bottom: 1px solid #00f2ff;
-    }
+        .art-card h3 {
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 700;
+        }
 
-    /* 自我介紹樣式 */
-    .about-me {
-      max-width: 900px;
-      margin: 80px auto 40px;
-      padding: 40px;
-      background: linear-gradient(180deg, #161b22 0%, #0b0e14 100%);
-      border-radius: 15px;
-      border: 1px dashed #00f2ff;
-      text-align: center;
-    }
+        .left-column .art-card h3 { color: var(--primary-color); }
+        .right-column .art-card h3 { color: var(--secondary-color); }
 
-    .about-me h3 {
-      color: #00f2ff;
-      margin-top: 0;
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
+        .art-card .app-info p {
+            margin: 0;
+            color: #64748b;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
 
-    .skills {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      margin-top: 25px;
-    }
+        .art-card .btn {
+            margin-top: 1.2rem;
+            text-align: center;
+            border: none;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
-    .skill-tag {
-      background: rgba(0, 242, 255, 0.1);
-      padding: 8px 20px;
-      border-radius: 5px;
-      border: 1px solid #00f2ff;
-      font-weight: bold;
-      color: #fff;
-    }
+        .btn-download { background: linear-gradient(90deg, var(--primary-color), #60a5fa); }
+        .btn-tool { background: linear-gradient(90deg, var(--secondary-color), #34d399); }
 
-    footer {
-      text-align: center;
-      padding: 40px 0;
-      color: #777;
-      font-size: 0.9em;
-      border-top: 1px solid #161b22;
-      background-color: #0b0e14;
-    }
-  </style>
+        @media (max-width: 1200px) {
+            .container { grid-template-columns: 1.2fr 2fr 1.2fr; gap: 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.4rem; }
+            .container { grid-template-columns: 1fr; padding: 0 1rem; }
+        }
+
+        .section-title {
+            border-left: 5px solid var(--primary-color);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .travel-title { border-left-color: var(--accent-color); }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
+        .travel-card { flex-direction: column; align-items: flex-start; border-top: 4px solid var(--accent-color); overflow: hidden;}
+        
+        .post-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .app-info { flex: 1; width: 100%; }
+        .app-info h3 { margin: 0 0 0.3rem 0; font-size: 1.05rem; }
+        .app-info p { margin: 0; color: #64748b; font-size: 0.85rem; line-height: 1.5; }
+
+        .btn {
+            display: inline-block; padding: 0.5rem 0.8rem; border-radius: 6px;
+            text-decoration: none; font-weight: bold; font-size: 0.85rem;
+            transition: opacity 0.2s; white-space: nowrap;
+        }
+        
+        .btn-more { background-color: #f1f5f9; color: #475569; margin-top: 0.8rem; }
+        .btn-more:hover { background-color: #e2e8f0; }
+
+        .dev-section {
+            max-width: 1600px;
+            margin: 0 auto 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .dev-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .dev-content h2 {
+            margin-top: 0;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .dev-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+        }
+
+        .skill-tag {
+            background: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        footer { text-align: center; padding: 1.5rem; color: #94a3b8; font-size: 0.75rem; border-top: 1px solid #e2e8f0; }
+
+        .quote {
+            font-style: italic; color: #475569; border-bottom: 1px dashed #cbd5e1;
+            padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>🚀 BENNY TECH HUB</h1>
-    <p>軟體開發與大數據分析站點</p>
-  </header>
+<header>
+    <div id="canvas-container"></div>
+    <h1>軟體資源與生活誌</h1>
+    <p>探索數位工具的便利，也別忘了遠方的風景</p>
+</header>
 
-  <main>
-    <div class="software">
-      <div class="software-content">
-        <h2>🔹 Android 圍棋競賽</h2>
-        <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模」。<br><small>2026/02/18 Benny 版權</small></p>
-        <a class="download" href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" download>⬇ DOWNLOAD NOW</a>
-      </div>
+<div class="container">
+    <div class="left-column">
+        <h2 class="section-title">我的 APP 作品 (原創)</h2>
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-orig-1"></div>
+                <h3>Android 圍棋競賽</h3>
+            </div>
+            <div class="app-info">
+                <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模」。</p>
+            </div>
+            <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" class="btn btn-download">立即體驗</a>
+        </div>
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-orig-2"></div>
+                <h3>Android 古典暗棋</h3>
+            </div>
+            <div class="app-info">
+                <p>中國風棋盤、戰績紀錄與刪除功能、AI 自動對弈。</p>
+            </div>
+            <a href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" class="btn btn-download">立即體驗</a>
+        </div>
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-orig-3"></div>
+                <h3>Android 打地鼠大賽</h3>
+            </div>
+            <div class="app-info">
+                <p>打地鼠大賽是一款經典「打地鼠」玩法的休閒小遊戲，考驗玩家的反應速度、專注力與手眼協調能力。</p>
+            </div>
+            <a href="https://github.com/acasiacomm/Benny-plays-whack-a-mole/raw/refs/heads/main/99999.apk" class="btn btn-download">立即體驗</a>
+        </div>
     </div>
 
-    <div class="software">
-      <div class="software-content">
-        <h2>🔹 Android 古典暗棋</h2>
-        <p>中國風棋盤、戰績紀錄與刪除功能、AI 自動對弈。<br><small>2026/02/17 Benny 版權</small></p>
-        <a class="download" href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" download>⬇ DOWNLOAD NOW</a>
-        <a class="policy-link" href="privacy-policy.html">📄 隱私權政策</a>
-      </div>
-    </div>
-    
-    <div class="software">
-      <div class="software-content">
-        <h2>🔹 Android 打地鼠大賽</h2>
-        <p>打地鼠大賽是一款經典「打地鼠」玩法的休閒小遊戲，考驗玩家的反應速度、專注力與手眼協調能力。隨著難度提升，挑戰也會越來越刺激！<br><small>2026/02/16 Benny 版權</small></p>
-        <a class="download" href="https://github.com/acasiacomm/Benny-plays-whack-a-mole/raw/refs/heads/main/99999.apk" download>⬇ DOWNLOAD NOW</a>
-      </div>
-    </div>
-  </main>
+    <div class="middle-column">
+        <h2 class="section-title travel-title">文藝與旅遊隨筆</h2>
+        
+        <div class="card travel-card">
+            <img src="https://yt3.googleusercontent.com/Rr_5mVQtAWoF5V3vjqxbiTMbcEVzy8--8oi7CJcudxfgXLAXfXHdrfDHrG-5JxQG20dIvgQ_g6M=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" class="post-img" alt="旅遊就好">
+            <div class="app-info">
+                <h3>時光凝結的城市</h3>
+                <p>這裡不只是旅遊勝地，更是一場心靈的修行。</p>
+            </div>
+            <a href="https://acasiacomm.github.io/asiacomm.github.io/" class="btn btn-more">旅遊就好</a>
+        </div>
 
-  <section class="about-me">
-    <h3>關於 Benny 開發者</h3>
-    <p>你好！我是 Benny。熱衷於探索虛擬與現實的邊界，專注於 3D 渲染與遊戲引擎技術。</p>
-    <div class="skills">
-      <div class="skill-tag">Three.js</div>
-      <div class="skill-tag">Unity</div>
-      <div class="skill-tag">Unreal Engine</div>
-      <div class="skill-tag">After Effects</div>
-      <div class="skill-tag">visual Studio</div>
-      <div class="skill-tag">3DS Max</div>
-      <div class="skill-tag">Cinema 4D</div>
-      <div class="skill-tag">Revit</div>
-      <div class="skill-tag">Android Dev</div>
-    </div>
-  </section>
+        <div class="card travel-card">
+            <img src="https://asiacomm-github-io.pages.dev/IMG_20251207_114149.jpg" class="post-img" alt="《孝經圖》手卷">
+            <div class="app-info">
+                <h3>週末文藝私藏：巷弄畫廊</h3>
+                <p>避開人潮，帶你走進隱身於巷弄中的微型畫廊。藏著年輕藝術家對土地的熱愛。</p>
+            </div>
+            <a href="########" class="btn btn-more">未公開</a>
+        </div>
 
-  <footer>
-    &copy; 2026 Benny 版權所有 | 每 10 分鐘產出一個手機軟體
-  </footer>
+        <div class="card travel-card">
+            <img src="https://asiacomm-github-io.pages.dev/IMG_20251207_112007.jpg" class="post-img" alt="《紅樓夢》第五回">
+            <div class="app-info">
+                <h3>與晨曦的對話</h3>
+                <p>清晨五點的城市，空氣中帶著一絲涼意，那是屬於早起者獨有的寧靜時光。</p>
+            </div>
+            <a href="########" class="btn btn-more">未公開</a>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <h2 class="section-title">實用軟體推薦 (第三方)</h2>
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-third-1"></div>
+                <h3>萬能解壓縮器</h3>
+            </div>
+            <div class="app-info">
+                <p>支援所有格式，輕量無廣告，提升您的文件處理效率。</p>
+            </div>
+            <a href="#" class="btn btn-tool">未公開</a>
+        </div>
+    </div>
+</div>
+
+<div class="dev-section">
+    <div class="dev-card">
+        <div class="dev-content">
+            <h2>關於 Benny 開發者</h2>
+            <p>你好！我是 Benny。熱衷於探索虛擬與現實的邊界，專注於 3D 渲染與遊戲引擎技術。</p>
+            <div class="dev-skills">
+                <span class="skill-tag">Three.js</span>
+                <span class="skill-tag">Unity</span>
+                <span class="skill-tag">Unreal Engine</span>
+                <span class="skill-tag">After Effects</span>
+                <span class="skill-tag">Visual Studio</span>
+                <span class="skill-tag">3DS Max</span>
+                <span class="skill-tag">Cinema 4D</span>
+                <span class="skill-tag">Revit</span>
+                <span class="skill-tag">Android Dev</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2026 Benny軟體工作室 & 旅人手札 | 內容僅供測試使用
+</footer>
+
+<script>
+    function initHeaderArt() {
+        const container = document.getElementById('canvas-container');
+        if (!container) return;
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.z = 5;
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        container.appendChild(renderer.domElement);
+
+        const particlesCount = 1500;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 15;
+        }
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.015,
+            color: 0x60a5fa,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        function animateHeader() {
+            requestAnimationFrame(animateHeader);
+            particlesMesh.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animateHeader();
+
+        window.addEventListener('resize', () => {
+            const w = container.clientWidth;
+            const h = container.clientHeight;
+            renderer.setSize(w, h);
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+        });
+    }
+
+    function createCardAnim(elementId, shape) {
+        const container = document.getElementById(elementId);
+        if(!container) return;
+        
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+        camera.position.z = 2.5;
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(60, 60);
+        container.appendChild(renderer.domElement);
+
+        let geometry;
+        switch(shape) {
+            case 'knot': geometry = new THREE.TorusKnotGeometry(0.7, 0.2, 100, 16); break;
+            case 'octa': geometry = new THREE.OctahedronGeometry(1, 0); break;
+            case 'box':  geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2); break;
+            case 'tetra': geometry = new THREE.TetrahedronGeometry(1.2, 0); break;
+            case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
+            default: geometry = new THREE.BoxGeometry(1, 1, 1);
+        }
+
+        const material = new THREE.MeshNormalMaterial({ wireframe: true });
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            mesh.rotation.x += 0.015;
+            mesh.rotation.y += 0.015;
+            renderer.render(scene, camera);
+        }
+        animate();
+    }
+
+    window.onload = () => {
+        initHeaderArt();
+        createCardAnim('anim-orig-1', 'knot');
+        createCardAnim('anim-orig-2', 'octa');
+        createCardAnim('anim-orig-3', 'sphere'); 
+        createCardAnim('anim-third-1', 'box');
+    };
+</script>
 
 </body>
 </html>
