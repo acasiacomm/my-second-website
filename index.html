@@ -12,6 +12,8 @@
             --accent-color: #f59e0b; 
             --bg-color: #f8fafc;
             --text-color: #1e293b;
+            --finance-dark: #064e3b;
+            --finance-gold: #fbbf24;
         }
 
         body {
@@ -81,6 +83,7 @@
             flex-direction: column;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
 
         .art-card:hover {
@@ -89,10 +92,30 @@
             border-color: var(--primary-color);
         }
 
+        /* 專業理財筆記專屬樣式 */
+        .finance-premium-card {
+            background: linear-gradient(145deg, #ffffff, #f0fdf4) !important;
+            border-left: 5px solid var(--finance-dark) !important;
+            border-right: 1px solid rgba(6, 78, 59, 0.1) !important;
+        }
+
+        .finance-premium-card::before {
+            content: '$ € ¥ £';
+            position: absolute;
+            right: -10px;
+            top: -10px;
+            font-size: 5rem;
+            font-weight: 900;
+            color: rgba(16, 185, 129, 0.05);
+            transform: rotate(-15deg);
+            pointer-events: none;
+        }
+
         .app-header-flex {
             display: flex;
             align-items: center;
             margin-bottom: 0.8rem;
+            z-index: 1;
         }
 
         .card-bg-anim {
@@ -122,6 +145,7 @@
             color: #64748b;
             font-size: 0.9rem;
             line-height: 1.6;
+            z-index: 1;
         }
 
         .art-card .btn {
@@ -130,6 +154,7 @@
             border: none;
             color: white;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1;
         }
 
         .btn-download { background: linear-gradient(90deg, var(--primary-color), #60a5fa); }
@@ -236,6 +261,37 @@
             font-style: italic; color: #475569; border-bottom: 1px dashed #cbd5e1;
             padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;
         }
+
+        /* 增強版專業分隔線樣式 */
+        .finance-divider {
+            display: flex;
+            align-items: center;
+            margin: 3rem 0 2rem 0; /* 增加上邊距，將下方項目下移 */
+            color: #475569;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        .finance-divider::before {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #cbd5e1);
+            margin-right: 15px;
+        }
+        .finance-divider::after {
+            content: "";
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #cbd5e1, transparent);
+            margin-left: 15px;
+        }
+        
+        .right-column .section-title {
+            border-left-color: #059669;
+            color: #065f46;
+        }
     </style>
 </head>
 <body>
@@ -313,7 +369,21 @@
     </div>
 
     <div class="right-column">
-        <h2 class="section-title">3D建模平台</h2>
+        <h2 class="section-title">財金與工具專欄</h2>
+
+        <div class="art-card finance-premium-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-finance-note" style="background: rgba(5, 150, 105, 0.15);"></div>
+                <h3 style="color: #064e3b; letter-spacing: 1px;">Michael 的理財筆記</h3>
+            </div>
+            <div class="app-info">
+                <p style="color: #065f46;"><strong>STRATEGIC FINANCE ANALYSIS</strong><br>專研台美股趨勢、全球資產配置與自動化理財規劃，打造穩健被動收入體系。</p>
+            </div>
+            <a href="https://vocus.cc/salon/Michael_Goo_Life/room/Micahel_LT" target="_blank" class="btn btn-tool" style="background: linear-gradient(90deg, #064e3b, #059669); font-size: 0.95rem; padding: 0.7rem;">進入專業財金專欄</a>
+        </div>
+
+        <div class="finance-divider">應用工具與開發項目</div>
+
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim" id="anim-third-1"></div>
@@ -325,7 +395,6 @@
             <a href="privacy-policy.html" class="btn btn-tool">查看內容</a>
         </div>
 
-        <!-- 新插入的矽光子晶片卡片 -->
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim" id="anim-silicon-chip"></div>
@@ -436,6 +505,9 @@
         container.appendChild(renderer.domElement);
 
         let geometry;
+        let colorValue = 0xffffff;
+        let isFinance = (elementId === 'anim-finance-note');
+
         switch(shape) {
             case 'knot': geometry = new THREE.TorusKnotGeometry(0.7, 0.2, 100, 16); break;
             case 'octa': geometry = new THREE.OctahedronGeometry(1, 0); break;
@@ -443,17 +515,40 @@
             case 'tetra': geometry = new THREE.TetrahedronGeometry(1.2, 0); break;
             case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
             case 'torus': geometry = new THREE.TorusGeometry(0.7, 0.3, 16, 100); break;
+            case 'ico': geometry = new THREE.IcosahedronGeometry(1, 0); break; // 專業理財用幾何體
             default: geometry = new THREE.BoxGeometry(1, 1, 1);
         }
 
-        const material = new THREE.MeshNormalMaterial({ wireframe: true });
-        const mesh = new THREE.Mesh(geometry, material);
+        const material = new THREE.MeshNormalMaterial({ 
+            wireframe: true,
+            transparent: isFinance ? false : true,
+            opacity: 0.8
+        });
+        
+        // 理財筆記使用金黃色調材質
+        const financeMaterial = new THREE.MeshStandardMaterial({
+            color: 0xfbbf24,
+            wireframe: true,
+            roughness: 0.3,
+            metalness: 0.8
+        });
+
+        const mesh = new THREE.Mesh(geometry, isFinance ? financeMaterial : material);
         scene.add(mesh);
+
+        // 理財動畫需要光源
+        if(isFinance) {
+            const light = new THREE.PointLight(0xffffff, 1, 100);
+            light.position.set(5, 5, 5);
+            scene.add(light);
+            const ambientLight = new THREE.AmbientLight(0x404040);
+            scene.add(ambientLight);
+        }
 
         function animate() {
             requestAnimationFrame(animate);
-            mesh.rotation.x += 0.015;
-            mesh.rotation.y += 0.015;
+            mesh.rotation.x += isFinance ? 0.02 : 0.015;
+            mesh.rotation.y += isFinance ? 0.02 : 0.015;
             renderer.render(scene, camera);
         }
         animate();
@@ -465,9 +560,10 @@
         createCardAnim('anim-orig-2', 'octa');
         createCardAnim('anim-orig-3', 'sphere'); 
         createCardAnim('anim-third-1', 'box');
-        // 為新加入的矽光子晶片初始化動畫 (使用圓環 torus)
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
+        // 為專業理財筆記初始化金融專用動畫 (Icosahedron 象徵穩固)
+        createCardAnim('anim-finance-note', 'ico');
     };
 </script>
 
