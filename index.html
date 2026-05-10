@@ -325,6 +325,18 @@
             <a href="privacy-policy.html" class="btn btn-tool">查看內容</a>
         </div>
 
+        <!-- 新插入的矽光子晶片卡片 -->
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-silicon-chip"></div>
+                <h3>矽光子晶片</h3>
+            </div>
+            <div class="app-info">
+                <p>高效能光電轉換技術，探索下一代半導體運算的極致速度。</p>
+            </div>
+            <a href="https://github.com/acasiacomm/Silicon-photonics-chip/raw/refs/heads/main/202600510.apk" class="btn btn-download">立即下載體驗</a>
+        </div>
+
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim" id="anim-time-camera"></div>
@@ -430,6 +442,7 @@
             case 'box':  geometry = new THREE.BoxGeometry(1.2, 1.2, 1.2); break;
             case 'tetra': geometry = new THREE.TetrahedronGeometry(1.2, 0); break;
             case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
+            case 'torus': geometry = new THREE.TorusGeometry(0.7, 0.3, 16, 100); break;
             default: geometry = new THREE.BoxGeometry(1, 1, 1);
         }
 
@@ -452,7 +465,8 @@
         createCardAnim('anim-orig-2', 'octa');
         createCardAnim('anim-orig-3', 'sphere'); 
         createCardAnim('anim-third-1', 'box');
-        // 為新加入的時間相機初始化 3D 動畫
+        // 為新加入的矽光子晶片初始化動畫 (使用圓環 torus)
+        createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
     };
 </script>
