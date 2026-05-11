@@ -92,7 +92,6 @@
             border-color: var(--primary-color);
         }
 
-        /* 專業理財筆記專屬樣式 */
         .finance-premium-card {
             background: linear-gradient(145deg, #ffffff, #f0fdf4) !important;
             border-left: 5px solid var(--finance-dark) !important;
@@ -257,16 +256,10 @@
 
         footer { text-align: center; padding: 1.5rem; color: #94a3b8; font-size: 0.75rem; border-top: 1px solid #e2e8f0; }
 
-        .quote {
-            font-style: italic; color: #475569; border-bottom: 1px dashed #cbd5e1;
-            padding-bottom: 1rem; margin-bottom: 1rem; width: 100%;
-        }
-
-        /* 增強版專業分隔線樣式 */
         .finance-divider {
             display: flex;
             align-items: center;
-            margin: 3rem 0 2rem 0; /* 增加上邊距，將下方項目下移 */
+            margin: 3rem 0 2rem 0;
             color: #475569;
             font-size: 0.9rem;
             font-weight: 800;
@@ -382,7 +375,6 @@
             <a href="https://vocus.cc/salon/Michael_Goo_Life" target="_blank" class="btn btn-tool" style="background: linear-gradient(90deg, #064e3b, #059669); font-size: 0.95rem; padding: 0.7rem;">進入專業財金專欄</a>
         </div>
 
-        <!-- 新插入的 MIT OCW 欄位 -->
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim" id="anim-mit-ocw"></div>
@@ -395,17 +387,6 @@
         </div>
 
         <div class="finance-divider">應用工具與開發項目</div>
-
-        <div class="art-card">
-            <div class="app-header-flex">
-                <div class="card-bg-anim" id="anim-third-1"></div>
-                <h3>Benny平台</h3>
-            </div>
-            <div class="app-info">
-                <p>支援所有格式，輕量無廣告，提升您的文件處理效率。</p>
-            </div>
-            <a href="privacy-policy.html" class="btn btn-tool">查看內容</a>
-        </div>
 
         <div class="art-card">
             <div class="app-header-flex">
@@ -517,7 +498,6 @@
         container.appendChild(renderer.domElement);
 
         let geometry;
-        let colorValue = 0xffffff;
         let isFinance = (elementId === 'anim-finance-note');
 
         switch(shape) {
@@ -528,17 +508,16 @@
             case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
             case 'torus': geometry = new THREE.TorusGeometry(0.7, 0.3, 16, 100); break;
             case 'ico': geometry = new THREE.IcosahedronGeometry(1, 0); break; 
-            case 'dodeca': geometry = new THREE.DodecahedronGeometry(1, 0); break; // MIT 專用幾何體
+            case 'dodeca': geometry = new THREE.DodecahedronGeometry(1, 0); break;
             default: geometry = new THREE.BoxGeometry(1, 1, 1);
         }
 
         const material = new THREE.MeshNormalMaterial({ 
             wireframe: true,
-            transparent: isFinance ? false : true,
+            transparent: !isFinance,
             opacity: 0.8
         });
         
-        // 理財筆記使用金黃色調材質
         const financeMaterial = new THREE.MeshStandardMaterial({
             color: 0xfbbf24,
             wireframe: true,
@@ -549,7 +528,6 @@
         const mesh = new THREE.Mesh(geometry, isFinance ? financeMaterial : material);
         scene.add(mesh);
 
-        // 理財動畫需要光源
         if(isFinance) {
             const light = new THREE.PointLight(0xffffff, 1, 100);
             light.position.set(5, 5, 5);
@@ -572,11 +550,9 @@
         createCardAnim('anim-orig-1', 'knot');
         createCardAnim('anim-orig-2', 'octa');
         createCardAnim('anim-orig-3', 'sphere'); 
-        createCardAnim('anim-third-1', 'box');
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
-        // 為 MIT OCW 初始化動畫
         createCardAnim('anim-mit-ocw', 'dodeca');
     };
 </script>
