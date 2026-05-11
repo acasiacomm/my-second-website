@@ -382,6 +382,18 @@
             <a href="https://vocus.cc/salon/Michael_Goo_Life/room/Micahel_LT" target="_blank" class="btn btn-tool" style="background: linear-gradient(90deg, #064e3b, #059669); font-size: 0.95rem; padding: 0.7rem;">進入專業財金專欄</a>
         </div>
 
+        <!-- 新插入的 MIT OCW 欄位 -->
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-mit-ocw"></div>
+                <h3>MIT 開放課程</h3>
+            </div>
+            <div class="app-info">
+                <p>麻省理工學院 (MIT) 電機工程與電腦科學開放課程，探索世界頂尖學術資源。</p>
+            </div>
+            <a href="https://ocw.mit.edu/search/?d=Electrical+Engineering+and+Computer+Science" target="_blank" class="btn btn-tool">前往課程</a>
+        </div>
+
         <div class="finance-divider">應用工具與開發項目</div>
 
         <div class="art-card">
@@ -515,7 +527,8 @@
             case 'tetra': geometry = new THREE.TetrahedronGeometry(1.2, 0); break;
             case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
             case 'torus': geometry = new THREE.TorusGeometry(0.7, 0.3, 16, 100); break;
-            case 'ico': geometry = new THREE.IcosahedronGeometry(1, 0); break; // 專業理財用幾何體
+            case 'ico': geometry = new THREE.IcosahedronGeometry(1, 0); break; 
+            case 'dodeca': geometry = new THREE.DodecahedronGeometry(1, 0); break; // MIT 專用幾何體
             default: geometry = new THREE.BoxGeometry(1, 1, 1);
         }
 
@@ -562,8 +575,9 @@
         createCardAnim('anim-third-1', 'box');
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
-        // 為專業理財筆記初始化金融專用動畫 (Icosahedron 象徵穩固)
         createCardAnim('anim-finance-note', 'ico');
+        // 為 MIT OCW 初始化動畫
+        createCardAnim('anim-mit-ocw', 'dodeca');
     };
 </script>
 
