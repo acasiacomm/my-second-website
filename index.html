@@ -130,6 +130,12 @@
             overflow: hidden;
         }
 
+        .card-bg-anim img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .art-card h3 {
             font-size: 1.2rem;
             margin: 0;
@@ -310,7 +316,9 @@
         </div>
         <div class="art-card">
             <div class="app-header-flex">
-                <div class="card-bg-anim" id="anim-orig-2"></div>
+                <div class="card-bg-anim">
+                    <img src="image_7223ebce.png" alt="Android 古典暗棋">
+                </div>
                 <h3>Android 古典暗棋</h3>
             </div>
             <div class="app-info">
@@ -400,6 +408,7 @@
         </div>
 
         <div class="art-card">
+            <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim" id="anim-time-camera"></div>
                 <h3>Android 時間相機</h3>
@@ -548,7 +557,7 @@
     window.onload = () => {
         initHeaderArt();
         createCardAnim('anim-orig-1', 'knot');
-        createCardAnim('anim-orig-2', 'octa');
+        /* 移除 anim-orig-2 (古典暗棋) 的動畫初始化，改用靜態圖片 */
         createCardAnim('anim-orig-3', 'sphere'); 
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
