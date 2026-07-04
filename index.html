@@ -307,18 +307,6 @@
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
-                    <img src="image_1223ebce.png" alt="Android 圍棋競賽">
-                </div>
-                <h3>Android 圍棋競賽</h3>
-            </div>
-            <div class="app-info">
-                <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模」。</p>
-            </div>
-            <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" class="btn btn-download">立即體驗</a>
-        </div>
-        <div class="art-card">
-            <div class="app-header-flex">
-                <div class="card-bg-anim">
                     <img src="PNG圖.jpg" alt="Android 轉珠水果盤">
                 </div>
                 <h3>Android 轉珠水果盤</h3>
@@ -327,6 +315,18 @@
                 <p>獨創轉珠玩法結合經典水果盤規則，帶給您充滿策略與爽快消去感的全新休閒體驗。</p>
             </div>
             <a href="https://github.com/acasiacomm/Rotating-Fruit-Platter/raw/refs/heads/main/Rotating%20Fruit%20Platter.apk" class="btn btn-download">立即體驗</a>
+        </div>
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim">
+                    <img src="image_1223ebce.png" alt="Android 圍棋競賽">
+                </div>
+                <h3>Android 圍棋競賽</h3>
+            </div>
+            <div class="app-info">
+                <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模。」</p>
+            </div>
+            <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" class="btn btn-download">立即體驗</a>
         </div>
         <div class="art-card">
             <div class="app-header-flex">
@@ -438,7 +438,7 @@
     <div class="dev-card">
         <div class="dev-content">
             <h2>關於開發者</h2>
-            <p>熱衷於探索虛擬與現實的邊界，專注於 3D 渲染與智慧建築平台介接技術，自駕車模擬平台。</p>
+            <p>熱衷於探索虛擬與現實的邊界，專注於 3D 渲染與智慧建築 platform 介接技術，自駕車模擬平台。</p>
             <div class="dev-skills">
                 <span class="skill-tag">Three.js</span>
                 <span class="skill-tag">Unity</span>
@@ -569,9 +569,6 @@
 
     window.onload = () => {
         initHeaderArt();
-        /* 移除 anim-orig-1 (圍棋競賽) 的動畫初始化，改用靜態圖片 */
-        /* 移除 anim-orig-2 (古典暗棋) 的動畫初始化，改用靜態圖片 */
-        /* 移除 anim-fruit-platter (轉珠水果盤) 的動畫初始化，改用靜態圖片 */
         createCardAnim('anim-orig-3', 'sphere'); 
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
