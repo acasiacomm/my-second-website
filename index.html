@@ -89,6 +89,26 @@
             letter-spacing: 1px;
         }
 
+        /* 個別遊戲體驗計數器樣式 */
+        .game-counter {
+            margin-top: 1.2rem;
+            font-size: 0.85rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 500;
+        }
+
+        .game-counter span {
+            font-weight: bold;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .container {
             max-width: 1600px; 
             margin: 1.5rem auto;
@@ -181,7 +201,7 @@
         }
 
         .art-card .btn {
-            margin-top: 1.2rem;
+            margin-top: 0.6rem; /* 微調有計數器後的按鈕上方間距 */
             text-align: center;
             border: none;
             color: white;
@@ -326,7 +346,6 @@
     <div id="canvas-container"></div>
     <h1>軟體資源與生活誌</h1>
     <p>探索數位工具的便利，也別忘了遠方的風景</p>
-    <!-- 新增計數器 HTML 結構 -->
     <div class="visitor-counter">
         📡 網頁瀏覽人次：<span id="count-value">0</span>
     </div>
@@ -335,6 +354,7 @@
 <div class="container">
     <div class="left-column">
         <h2 class="section-title">Android</h2>
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -345,8 +365,10 @@
             <div class="app-info">
                 <p>獨創轉珠玩法結合經典水果盤規則，帶給您充滿策略與爽快消去感的全新休閒體驗。</p>
             </div>
-            <a href="https://github.com/acasiacomm/Rotating-Fruit-Platter/raw/refs/heads/main/Rotating%20Fruit%20Platter.apk" class="btn btn-download">立即體驗</a>
+            <div class="game-counter">🎮 體驗人次：<span id="game1-count">0</span></div>
+            <a href="https://github.com/acasiacomm/Rotating-Fruit-Platter/raw/refs/heads/main/Rotating%20Fruit%20Platter.apk" id="game1-btn" class="btn btn-download">立即體驗</a>
         </div>
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -357,8 +379,10 @@
             <div class="app-info">
                 <p>圍棋比賽分成 職業賽 和 業餘賽 兩種，差別主要在「棋手身分」與「比賽規模。」</p>
             </div>
-            <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" class="btn btn-download">立即體驗</a>
+            <div class="game-counter">棋 體驗人次：<span id="game2-count">0</span></div>
+            <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" id="game2-btn" class="btn btn-download">立即體驗</a>
         </div>
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -369,8 +393,10 @@
             <div class="app-info">
                 <p>中國風棋盤、戰績紀錄與刪除功能、AI 自動對弈。</p>
             </div>
-            <a href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" class="btn btn-download">立即體驗</a>
+            <div class="game-counter">☵ 體驗人次：<span id="game3-count">0</span></div>
+            <a href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" id="game3-btn" class="btn btn-download">立即體驗</a>
         </div>
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -381,7 +407,8 @@
             <div class="app-info">
                 <p>打地鼠大賽是一款經典「打地鼠」玩法的休閒小遊戲，考驗玩家的反應速度、專注力與手眼協調能力。</p>
             </div>
-            <a href="https://github.com/acasiacomm/Benny-plays-whack-a-mole/raw/refs/heads/main/99999.apk" class="btn btn-download">立即體驗</a>
+            <div class="game-counter">🔨 體驗人次：<span id="game4-count">0</span></div>
+            <a href="https://github.com/acasiacomm/Benny-plays-whack-a-mole/raw/refs/heads/main/99999.apk" id="game4-btn" class="btn btn-download">立即體驗</a>
         </div>
     </div>
 
@@ -618,11 +645,10 @@
     window.onload = () => {
         initHeaderArt();
         
-        // ---------------- 計數器邏輯 ----------------
+        // ---------------- 主網頁計數器邏輯 ----------------
         const counterElement = document.getElementById('count-value');
         const baseCount = 1500; // 基礎設定值：從 1,500 人開始
         
-        // 取得 localStorage 中儲存的造訪數，若沒有就初始化為 baseCount
         let savedCount = localStorage.getItem('local_visitor_count');
         if (!savedCount) {
             savedCount = baseCount;
@@ -630,14 +656,51 @@
             savedCount = parseInt(savedCount, 10);
         }
         
-        // 每次重新整理網頁時，隨機增加 1~3 個人次，模擬真實使用者進入的效果
         const finalValue = savedCount + Math.floor(Math.random() * 3) + 1;
-        
-        // 將最新數字存回瀏覽器快取中，下次重整會繼續往上累加
         localStorage.setItem('local_visitor_count', finalValue);
-        
-        // 啟動炫酷的數位快速跳動動畫 (從 0 快速滾動到指定數字，耗時 1.5 秒)
         animateNumber(counterElement, 0, finalValue, 1500);
+        // --------------------------------------------
+
+
+        // ---------------- 各遊戲點擊計數器邏輯 ----------------
+        const games = [
+            { id: 'game1', base: 320 },  // 遊戲1基礎點擊設定值
+            { id: 'game2', base: 185 },  // 遊戲2基礎點擊設定值
+            { id: 'game3', base: 240 },  // 遊戲3基礎點擊設定值
+            { id: 'game4', base: 410 }   // 遊戲4基礎點擊設定值
+        ];
+
+        games.forEach(game => {
+            const displayEl = document.getElementById(`${game.id}-count`);
+            const btnEl = document.getElementById(`${game.id}-btn`);
+            
+            // 讀取快取計數，沒有則給予基礎預設值
+            let currentCount = localStorage.getItem(`${game.id}_click_count`);
+            if (!currentCount) {
+                currentCount = game.base;
+                localStorage.setItem(`${game.id}_click_count`, currentCount);
+            } else {
+                currentCount = parseInt(currentCount, 10);
+            }
+
+            // 初始化時載入數字滾動動畫 (1秒內滾動完畢)
+            if (displayEl) {
+                animateNumber(displayEl, 0, currentCount, 1000);
+            }
+
+            // 綁定按鈕點擊事件
+            if (btnEl) {
+                btnEl.addEventListener('click', () => {
+                    let latestCount = parseInt(localStorage.getItem(`${game.id}_click_count`), 10) || game.base;
+                    latestCount += 1;
+                    localStorage.setItem(`${game.id}_click_count`, latestCount);
+                    // 點擊後即時更新數字顯示
+                    if (displayEl) {
+                        displayEl.innerText = latestCount.toLocaleString();
+                    }
+                });
+            }
+        });
         // --------------------------------------------
 
         /* 移除 anim-orig-3 的 3D 初始化，改由 HTML 直接渲染 6666.png 圖片 */
