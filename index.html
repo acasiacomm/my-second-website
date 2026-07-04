@@ -354,7 +354,7 @@
 <div class="container">
     <div class="left-column">
         <h2 class="section-title">Android</h2>
-        
+         
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -368,7 +368,7 @@
             <div class="game-counter">🎮 體驗人次：<span id="game1-count">0</span></div>
             <a href="https://github.com/acasiacomm/Rotating-Fruit-Platter/raw/refs/heads/main/Rotating%20Fruit%20Platter.apk" id="game1-btn" class="btn btn-download">立即體驗</a>
         </div>
-        
+         
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -382,7 +382,7 @@
             <div class="game-counter">🎮 體驗人次：<span id="game2-count">0</span></div>
             <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" id="game2-btn" class="btn btn-download">立即體驗</a>
         </div>
-        
+         
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -396,7 +396,7 @@
             <div class="game-counter">🎮 體驗人次：<span id="game3-count">0</span></div>
             <a href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" id="game3-btn" class="btn btn-download">立即體驗</a>
         </div>
-        
+         
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -454,7 +454,8 @@
             <div class="app-info">
                 <p style="color: #065f46;"><strong>STRATEGIC FINANCE ANALYSIS</strong><br>專研台美股趨勢、全球資產配置與自動化理財規劃，打造穩健被動收入體系。</p>
             </div>
-            <a href="https://vocus.cc/salon/Michael_Goo_Life" target="_blank" class="btn btn-tool" style="background: linear-gradient(90deg, #064e3b, #059669); font-size: 0.95rem; padding: 0.7rem;">進入專業財金專欄</a>
+            <div class="game-counter">📈 點閱人次：<span id="right1-count">0</span></div>
+            <a href="https://vocus.cc/salon/Michael_Goo_Life" id="right1-btn" target="_blank" class="btn btn-tool" style="background: linear-gradient(90deg, #064e3b, #059669); font-size: 0.95rem; padding: 0.7rem;">進入專業財金專欄</a>
         </div>
 
         <div class="art-card">
@@ -465,7 +466,8 @@
             <div class="app-info">
                 <p>麻省理工學院 (MIT) 電機工程與電腦科學開放課程，探索世界頂尖學術資源。</p>
             </div>
-            <a href="https://ocw.mit.edu/search/?d=Electrical+Engineering+and+Computer+Science" target="_blank" class="btn btn-tool">前往課程</a>
+            <div class="game-counter">📖 瀏覽人次：<span id="right2-count">0</span></div>
+            <a href="https://ocw.mit.edu/search/?d=Electrical+Engineering+and+Computer+Science" id="right2-btn" target="_blank" class="btn btn-tool">前往課程</a>
         </div>
 
         <div class="finance-divider">應用工具與開發項目</div>
@@ -478,7 +480,8 @@
             <div class="app-info">
                 <p>高效能光電轉換技術，探索下一代半導體運算的極致速度。</p>
             </div>
-            <a href="https://github.com/acasiacomm/Silicon-photonics-chip/raw/refs/heads/main/202600510.apk" class="btn btn-download">立即下載體驗</a>
+            <div class="game-counter">⚡ 體驗人次：<span id="right3-count">0</span></div>
+            <a href="https://github.com/acasiacomm/Silicon-photonics-chip/raw/refs/heads/main/202600510.apk" id="right3-btn" class="btn btn-download">立即下載體驗</a>
         </div>
 
         <div class="art-card">
@@ -489,7 +492,8 @@
             <div class="app-info">
                 <p>捕捉精彩瞬間，紀錄時間流轉的獨特影像工具。</p>
             </div>
-            <a href="https://github.com/acasiacomm/Benny-Time-Camera/raw/refs/heads/main/55555.apk" class="btn btn-download">立即下載體驗</a>
+            <div class="game-counter">📸 體驗人次：<span id="right4-count">0</span></div>
+            <a href="https://github.com/acasiacomm/Benny-Time-Camera/raw/refs/heads/main/55555.apk" id="right4-btn" class="btn btn-download">立即下載體驗</a>
         </div>
     </div>
 </div>
@@ -662,7 +666,7 @@
         // --------------------------------------------
 
 
-        // ---------------- 各遊戲點擊計數器邏輯 ----------------
+        // ---------------- 各遊戲點擊計數器邏輯（左側欄） ----------------
         const games = [
             { id: 'game1', base: 320 },  // 遊戲1基礎點擊設定值
             { id: 'game2', base: 185 },  // 遊戲2基礎點擊設定值
@@ -674,7 +678,6 @@
             const displayEl = document.getElementById(`${game.id}-count`);
             const btnEl = document.getElementById(`${game.id}-btn`);
             
-            // 讀取快取計數，沒有則給予基礎預設值
             let currentCount = localStorage.getItem(`${game.id}_click_count`);
             if (!currentCount) {
                 currentCount = game.base;
@@ -683,18 +686,53 @@
                 currentCount = parseInt(currentCount, 10);
             }
 
-            // 初始化時載入數字滾動動畫 (1秒內滾動完畢)
             if (displayEl) {
                 animateNumber(displayEl, 0, currentCount, 1000);
             }
 
-            // 綁定按鈕點擊事件
             if (btnEl) {
                 btnEl.addEventListener('click', () => {
                     let latestCount = parseInt(localStorage.getItem(`${game.id}_click_count`), 10) || game.base;
                     latestCount += 1;
                     localStorage.setItem(`${game.id}_click_count`, latestCount);
-                    // 點擊後即時更新數字顯示
+                    if (displayEl) {
+                        displayEl.innerText = latestCount.toLocaleString();
+                    }
+                });
+            }
+        });
+        // --------------------------------------------
+
+
+        // ---------------- 右側專欄與工具點擊計數器邏輯 ----------------
+        const rightColumns = [
+            { id: 'right1', base: 520 },  // 理財筆記基礎值
+            { id: 'right2', base: 280 },  // MIT開放課程基礎值
+            { id: 'right3', base: 195 },  // 矽光子晶片基礎值
+            { id: 'right4', base: 340 }   // 時間相機基礎值
+        ];
+
+        rightColumns.forEach(item => {
+            const displayEl = document.getElementById(`${item.id}-count`);
+            const btnEl = document.getElementById(`${item.id}-btn`);
+            
+            let currentCount = localStorage.getItem(`${item.id}_click_count`);
+            if (!currentCount) {
+                currentCount = item.base;
+                localStorage.setItem(`${item.id}_click_count`, currentCount);
+            } else {
+                currentCount = parseInt(currentCount, 10);
+            }
+
+            if (displayEl) {
+                animateNumber(displayEl, 0, currentCount, 1000);
+            }
+
+            if (btnEl) {
+                btnEl.addEventListener('click', () => {
+                    let latestCount = parseInt(localStorage.getItem(`${item.id}_click_count`), 10) || item.base;
+                    latestCount += 1;
+                    localStorage.setItem(`${item.id}_click_count`, latestCount);
                     if (displayEl) {
                         displayEl.innerText = latestCount.toLocaleString();
                     }
