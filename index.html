@@ -416,7 +416,7 @@
         <h2 class="section-title travel-title">文藝與旅遊隨筆</h2>
          
         <div class="card travel-card">
-            <img src="https://yt3.googleusercontent.com/Rr_5mVQtAWoF5V3vjqxbiTMbcEVzy8--8oi7CJcudxfgXLAXfXHdrfDHrG-5JxQG20dIvgQ_g6M=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" class="post-img" alt="旅遊就好">
+            <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600" class="post-img" alt="旅遊就好">
             <div class="app-info">
                 <h3>時光凝結的城市</h3>
                 <p>這裡不只是旅遊勝地，更是一場心靈的修行。</p>
@@ -661,79 +661,75 @@
             
             if(response.ok) {
                 const data = await response.json();
-                // 確保從 API 取得的值存在且為數字型態
                 const cloudCount = parseInt(data.count, 10);
                 if (!isNaN(cloudCount)) {
                     return cloudCount + base;
                 }
             }
         } catch(e) {
-            console.warn("雲端計數器暫時離線，切換為高擬真本地儲存模式");
+            console.warn(`雲端計數器 [${key}] 暫時離線，切換為本地儲存模式`);
         }
         
-        // Fallback 機制
+        // Fallback 機制修改：移除了原有的 site_main 隨機 +2 邏輯，確保每次本地觸發動作均精準 +1
         let localData = localStorage.getItem(`bk_${key}`) ? parseInt(localStorage.getItem(`bk_${key}`), 10) : base;
         if (isNaN(localData)) localData = base;
 
         if(isAdd) {
             localData += 1;
-        } else if (key === 'site_main') {
-            localData += Math.floor(Math.random() * 2) + 1;
         }
         localStorage.setItem(`bk_${key}`, localData);
         return localData;
     }
 
-    window.onload = async () => {
+    // 處理單個計數器綁定（加入防重覆點擊鎖定機制）
+    async function setupCounter(id, base, hasBtn = true) {
+        const display = document.getElementById(`${id}-count`) || document.getElementById('count-value');
+        const btn = document.getElementById(`${id}-btn`);
+        
+        // 先獲取並非同步渲染數字動畫
+        let count = await syncCount(id, base, false);
+        if(display) animateNumber(display, base, count, 1000);
+        
+        // 綁定點擊事件，並導入狀態鎖定（防止短時間內連續點擊或非同步重疊跳號）
+        if(hasBtn && btn) {
+            let isProcessing = false;
+            btn.addEventListener('click', async (e) => {
+                if(isProcessing) {
+                    e.preventDefault();
+                    return;
+                }
+                isProcessing = true;
+                
+                let newCount = await syncCount(id, base, true);
+                if(display) display.innerText = newCount.toLocaleString();
+                
+                isProcessing = false;
+            });
+        }
+    }
+
+    window.onload = () => {
+        // 優先載入 3D 視覺效果，確保使用者體驗流暢
         initHeaderArt();
-        
-        // 1. 主網頁人數統計
-        const mainEl = document.getElementById('count-value');
-        const mainCount = await syncCount('site_main', 1500, false);
-        animateNumber(mainEl, 1500, mainCount, 1200);
-
-        // 2. 左側欄遊戲與點擊統計 (修正為標準 for...of 非同步循環)
-        const leftItems = [
-            { id: 'game1', base: 320 }, { id: 'game2', base: 185 },
-            { id: 'game3', base: 240 }, { id: 'game4', base: 410 }
-        ];
-        
-        for (const item of leftItems) {
-            const display = document.getElementById(`${item.id}-count`);
-            const btn = document.getElementById(`${item.id}-btn`);
-            let count = await syncCount(item.id, item.base, false);
-            if(display) animateNumber(display, item.base, count, 1000);
-            if(btn) {
-                btn.addEventListener('click', async () => {
-                    let newCount = await syncCount(item.id, item.base, true);
-                    if(display) display.innerText = newCount.toLocaleString();
-                });
-            }
-        }
-
-        // 3. 右側欄工具點擊統計 (修正為標準 for...of 非同步循環)
-        const rightItems = [
-            { id: 'right1', base: 520 }, { id: 'right2', base: 280 },
-            { id: 'right3', base: 195 }, { id: 'right4', base: 340 }
-        ];
-        
-        for (const item of rightItems) {
-            const display = document.getElementById(`${item.id}-count`);
-            const btn = document.getElementById(`${item.id}-btn`);
-            let count = await syncCount(item.id, item.base, false);
-            if(display) animateNumber(display, item.base, count, 1000);
-            if(btn) {
-                btn.addEventListener('click', async () => {
-                    let newCount = await syncCount(item.id, item.base, true);
-                    if(display) display.innerText = newCount.toLocaleString();
-                });
-            }
-        }
-
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
         createCardAnim('anim-mit-ocw', 'dodeca');
+        
+        // 非同步並行（Parallel）啟動計數器，互不干涉、互不阻塞
+        setupCounter('site_main', 1500, false);
+
+        const leftItems = [
+            { id: 'game1', base: 320 }, { id: 'game2', base: 185 },
+            { id: 'game3', base: 240 }, { id: 'game4', base: 410 }
+        ];
+        leftItems.forEach(item => setupCounter(item.id, item.base, true));
+
+        const rightItems = [
+            { id: 'right1', base: 520 }, { id: 'right2', base: 280 },
+            { id: 'right3', base: 195 }, { id: 'right4', base: 340 }
+        ];
+        rightItems.forEach(item => setupCounter(item.id, item.base, true));
     };
 </script>
 </body>
