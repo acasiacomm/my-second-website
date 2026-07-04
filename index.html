@@ -342,7 +342,9 @@
         </div>
         <div class="art-card">
             <div class="app-header-flex">
-                <div class="card-bg-anim" id="anim-orig-3"></div>
+                <div class="card-bg-anim">
+                    <img src="6666.png" alt="Android 打地鼠大賽">
+                </div>
                 <h3>Android 打地鼠大賽</h3>
             </div>
             <div class="app-info">
@@ -569,7 +571,7 @@
 
     window.onload = () => {
         initHeaderArt();
-        createCardAnim('anim-orig-3', 'sphere'); 
+        /* 移除 anim-orig-3 的 3D 初始化，改由 HTML 直接渲染 6666.png 圖片 */
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
