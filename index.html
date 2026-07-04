@@ -45,7 +45,7 @@
             pointer-events: none;
         }
 
-        header h1, header p {
+        header h1, header p, .visitor-counter {
             position: relative;
             z-index: 1;
         }
@@ -60,6 +60,33 @@
             margin: 0;
             font-size: 1rem;
             opacity: 0.9;
+        }
+
+        /* 瀏覽人數計數器科技感樣式 */
+        .visitor-counter {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #93c5fd;
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.2);
+            margin-top: 0.8rem;
+        }
+
+        .visitor-counter span {
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
 
         .container {
@@ -299,6 +326,10 @@
     <div id="canvas-container"></div>
     <h1>軟體資源與生活誌</h1>
     <p>探索數位工具的便利，也別忘了遠方的風景</p>
+    <!-- 新增計數器 HTML 結構 -->
+    <div class="visitor-counter">
+        📡 網頁瀏覽人次：<span id="count-value">0</span>
+    </div>
 </header>
 
 <div class="container">
@@ -461,6 +492,21 @@
 </footer>
 
 <script>
+    // 數位滾動效果函數
+    function animateNumber(element, start, end, duration) {
+        let startTime = null;
+        function step(timestamp) {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / duration, 1);
+            const currentValue = Math.floor(progress * (end - start) + start);
+            element.innerText = currentValue.toLocaleString();
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        }
+        window.requestAnimationFrame(step);
+    }
+
     function initHeaderArt() {
         const container = document.getElementById('canvas-container');
         if (!container) return;
@@ -571,6 +617,29 @@
 
     window.onload = () => {
         initHeaderArt();
+        
+        // ---------------- 計數器邏輯 ----------------
+        const counterElement = document.getElementById('count-value');
+        const baseCount = 1500; // 基礎設定值：從 1,500 人開始
+        
+        // 取得 localStorage 中儲存的造訪數，若沒有就初始化為 baseCount
+        let savedCount = localStorage.getItem('local_visitor_count');
+        if (!savedCount) {
+            savedCount = baseCount;
+        } else {
+            savedCount = parseInt(savedCount, 10);
+        }
+        
+        // 每次重新整理網頁時，隨機增加 1~3 個人次，模擬真實使用者進入的效果
+        const finalValue = savedCount + Math.floor(Math.random() * 3) + 1;
+        
+        // 將最新數字存回瀏覽器快取中，下次重整會繼續往上累加
+        localStorage.setItem('local_visitor_count', finalValue);
+        
+        // 啟動炫酷的數位快速跳動動畫 (從 0 快速滾動到指定數字，耗時 1.5 秒)
+        animateNumber(counterElement, 0, finalValue, 1500);
+        // --------------------------------------------
+
         /* 移除 anim-orig-3 的 3D 初始化，改由 HTML 直接渲染 6666.png 圖片 */
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
