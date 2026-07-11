@@ -358,6 +358,20 @@
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
+                    <img src="123456.png" alt="東摸西摸麻將">
+                </div>
+                <h3>東摸西摸麻將</h3>
+            </div>
+            <div class="app-info">
+                <p>正宗經典麻將玩法，摸牌順暢不卡頓！隨時隨地輕鬆開局，體驗指尖上的胡牌爽快感。</p>
+            </div>
+            <div class="game-counter">🎮 體驗人次：<span id="game5-count">210</span></div>
+            <a href="https://github.com/acasiacomm/Touching-mahjong-tiles-here-and-there/raw/refs/heads/main/Touching%20mahjong%20tiles%20here%20and%20there.apk" id="game5-btn" class="btn btn-download">立即體驗</a>
+        </div>
+
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim">
                     <img src="PNG圖.jpg" alt="Android 轉珠水果盤">
                 </div>
                 <h3>Android 轉珠水果盤</h3>
@@ -670,7 +684,7 @@
             console.warn(`雲端計數器 [${key}] 暫時離線，切換為本地儲存模式`);
         }
         
-        // Fallback 機制修改：移除了原有的 site_main 隨機 +2 邏輯，確保每次本地觸發動作均精準 +1
+        // Fallback 機制
         let localData = localStorage.getItem(`bk_${key}`) ? parseInt(localStorage.getItem(`bk_${key}`), 10) : base;
         if (isNaN(localData)) localData = base;
 
@@ -681,7 +695,7 @@
         return localData;
     }
 
-    // 處理單個計數器綁定（加入防重覆點擊鎖定機制）
+    // 處理單個計數器綁定
     async function setupCounter(id, base, hasBtn = true) {
         const display = document.getElementById(`${id}-count`) || document.getElementById('count-value');
         const btn = document.getElementById(`${id}-btn`);
@@ -690,7 +704,7 @@
         let count = await syncCount(id, base, false);
         if(display) animateNumber(display, base, count, 1000);
         
-        // 綁定點擊事件，並導入狀態鎖定（防止短時間內連續點擊或非同步重疊跳號）
+        // 綁定點擊事件
         if(hasBtn && btn) {
             let isProcessing = false;
             btn.addEventListener('click', async (e) => {
@@ -709,19 +723,21 @@
     }
 
     window.onload = () => {
-        // 優先載入 3D 視覺效果，確保使用者體驗流暢
+        // 優先載入 3D 視覺效果
         initHeaderArt();
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
         createCardAnim('anim-mit-ocw', 'dodeca');
         
-        // 非同步並行（Parallel）啟動計數器，互不干涉、互不阻塞
+        // 非同步並行啟動計數器
         setupCounter('site_main', 1500, false);
 
+        // 已將新遊戲項目 game5 (base: 210) 放入清單中自動初始化
         const leftItems = [
-            { id: 'game1', base: 320 }, { id: 'game2', base: 185 },
-            { id: 'game3', base: 240 }, { id: 'game4', base: 410 }
+            { id: 'game5', base: 210 }, { id: 'game1', base: 320 }, 
+            { id: 'game2', base: 185 }, { id: 'game3', base: 240 }, 
+            { id: 'game4', base: 410 }
         ];
         leftItems.forEach(item => setupCounter(item.id, item.base, true));
 
