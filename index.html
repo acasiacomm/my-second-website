@@ -460,6 +460,20 @@
     <div class="right-column">
         <h2 class="section-title">財金與工具專欄</h2>
 
+        <!-- 新增的推薦 Netflix 影片卡片 -->
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" style="background: rgba(229, 9, 20, 0.15);">
+                    <span style="font-size: 1.5rem;">🎬</span>
+                </div>
+                <h3 style="color: #e50914;">推薦影音特輯</h3>
+            </div>
+            <div class="app-info">
+                <p>蘇志燮主演的熱播韓劇《金特務：本色回歸》</p>
+            </div>
+            <a href="https://www.netflix.com/tw/title/82682338" target="_blank" class="btn btn-tool" style="background: linear-gradient(90deg, #e50914, #b20710); font-size: 0.95rem; padding: 0.7rem; margin-top: 1.2rem;">觀看推薦 Netflix 影片</a>
+        </div>
+
         <div class="art-card finance-premium-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim" id="anim-finance-note" style="background: rgba(5, 150, 105, 0.15);"></div>
@@ -666,13 +680,13 @@
             const appId = "benny_log_center_2026";
             const action = isAdd ? "hit" : "get";
             const url = `https://api.scrim.vip/v1/count/${action}/${appId}/${key}`;
-            
+             
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), 2000);
-            
+             
             const response = await fetch(url, { signal: controller.signal });
             clearTimeout(id);
-            
+             
             if(response.ok) {
                 const data = await response.json();
                 const cloudCount = parseInt(data.count, 10);
@@ -683,7 +697,7 @@
         } catch(e) {
             console.warn(`雲端計數器 [${key}] 暫時離線，切換為本地儲存模式`);
         }
-        
+         
         // Fallback 機制
         let localData = localStorage.getItem(`bk_${key}`) ? parseInt(localStorage.getItem(`bk_${key}`), 10) : base;
         if (isNaN(localData)) localData = base;
@@ -699,11 +713,11 @@
     async function setupCounter(id, base, hasBtn = true) {
         const display = document.getElementById(`${id}-count`) || document.getElementById('count-value');
         const btn = document.getElementById(`${id}-btn`);
-        
+         
         // 先獲取並非同步渲染數字動畫
         let count = await syncCount(id, base, false);
         if(display) animateNumber(display, base, count, 1000);
-        
+         
         // 綁定點擊事件
         if(hasBtn && btn) {
             let isProcessing = false;
@@ -713,10 +727,10 @@
                     return;
                 }
                 isProcessing = true;
-                
+                 
                 let newCount = await syncCount(id, base, true);
                 if(display) display.innerText = newCount.toLocaleString();
-                
+                 
                 isProcessing = false;
             });
         }
@@ -729,7 +743,7 @@
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
         createCardAnim('anim-mit-ocw', 'dodeca');
-        
+         
         // 非同步並行啟動計數器
         setupCounter('site_main', 1500, false);
 
