@@ -244,7 +244,7 @@
 
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
         .travel-card { flex-direction: column; align-items: flex-start; border-top: 4px solid var(--accent-color); overflow: hidden;}
-         
+        
         .post-img {
             width: 100%;
             height: 180px;
@@ -262,7 +262,7 @@
             text-decoration: none; font-weight: bold; font-size: 0.85rem;
             transition: opacity 0.2s; white-space: nowrap;
         }
-         
+        
         .btn-more { background-color: #f1f5f9; color: #475569; margin-top: 0.8rem; }
         .btn-more:hover { background-color: #e2e8f0; }
 
@@ -333,7 +333,7 @@
             background: linear-gradient(90deg, #cbd5e1, transparent);
             margin-left: 15px;
         }
-         
+        
         .right-column .section-title {
             border-left-color: #059669;
             color: #065f46;
@@ -354,7 +354,7 @@
 <div class="container">
     <div class="left-column">
         <h2 class="section-title">Android</h2>
-         
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -382,7 +382,7 @@
             <div class="game-counter">🎮 體驗人次：<span id="game1-count">320</span></div>
             <a href="https://github.com/acasiacomm/Rotating-Fruit-Platter/raw/refs/heads/main/Rotating%20Fruit%20Platter.apk" id="game1-btn" class="btn btn-download">立即體驗</a>
         </div>
-         
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -396,7 +396,7 @@
             <div class="game-counter">🎮 體驗人次：<span id="game2-count">185</span></div>
             <a href="https://github.com/acasiacomm/Benny-s-Go-game/raw/refs/heads/main/77777.apk" id="game2-btn" class="btn btn-download">立即體驗</a>
         </div>
-         
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -410,7 +410,7 @@
             <div class="game-counter">🎮 體驗人次：<span id="game3-count">240</span></div>
             <a href="https://github.com/acasiacomm/benny-Dark-Chess/raw/refs/heads/main/20200217.apk" id="game3-btn" class="btn btn-download">立即體驗</a>
         </div>
-         
+        
         <div class="art-card">
             <div class="app-header-flex">
                 <div class="card-bg-anim">
@@ -424,11 +424,24 @@
             <div class="game-counter">🎮 體驗人次：<span id="game4-count">410</span></div>
             <a href="https://github.com/acasiacomm/Benny-plays-whack-a-mole/raw/refs/heads/main/99999.apk" id="game4-btn" class="btn btn-download">立即體驗</a>
         </div>
+
+        <!-- 新增：Google Colab 卡片 -->
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-colab"></div>
+                <h3>開發與機器學習環境</h3>
+            </div>
+            <div class="app-info">
+                <p>Google Colab 提供雲端免設定的 Python 開發環境，免費支援 GPU 與 TPU 資源，是數據分析、機器學習與深度學習模型訓練的絕佳平台。</p>
+            </div>
+            <div class="game-counter">💻 瀏覽人次：<span id="colab-count">350</span></div>
+            <a href="https://colab.research.google.com/" id="colab-btn" target="_blank" class="btn btn-tool">Google Colab</a>
+        </div>
     </div>
 
     <div class="middle-column">
         <h2 class="section-title travel-title">文藝與旅遊隨筆</h2>
-         
+        
         <div class="card travel-card">
             <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=600" class="post-img" alt="旅遊就好">
             <div class="app-info">
@@ -617,11 +630,11 @@
     function createCardAnim(elementId, shape) {
         const container = document.getElementById(elementId);
         if(!container) return;
-         
+        
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
         camera.position.z = 2.5;
-         
+        
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(60, 60);
         container.appendChild(renderer.domElement);
@@ -646,7 +659,7 @@
             transparent: !isFinance,
             opacity: 0.8
         });
-         
+        
         const financeMaterial = new THREE.MeshStandardMaterial({
             color: 0xfbbf24,
             wireframe: true,
@@ -680,13 +693,13 @@
             const appId = "benny_log_center_2026";
             const action = isAdd ? "hit" : "get";
             const url = `https://api.scrim.vip/v1/count/${action}/${appId}/${key}`;
-             
+            
             const controller = new AbortController();
             const id = setTimeout(() => controller.abort(), 2000);
-             
+            
             const response = await fetch(url, { signal: controller.signal });
             clearTimeout(id);
-             
+            
             if(response.ok) {
                 const data = await response.json();
                 const cloudCount = parseInt(data.count, 10);
@@ -697,7 +710,7 @@
         } catch(e) {
             console.warn(`雲端計數器 [${key}] 暫時離線，切換為本地儲存模式`);
         }
-         
+        
         // Fallback 機制
         let localData = localStorage.getItem(`bk_${key}`) ? parseInt(localStorage.getItem(`bk_${key}`), 10) : base;
         if (isNaN(localData)) localData = base;
@@ -713,11 +726,11 @@
     async function setupCounter(id, base, hasBtn = true) {
         const display = document.getElementById(`${id}-count`) || document.getElementById('count-value');
         const btn = document.getElementById(`${id}-btn`);
-         
+        
         // 先獲取並非同步渲染數字動畫
         let count = await syncCount(id, base, false);
         if(display) animateNumber(display, base, count, 1000);
-         
+        
         // 綁定點擊事件
         if(hasBtn && btn) {
             let isProcessing = false;
@@ -727,10 +740,10 @@
                     return;
                 }
                 isProcessing = true;
-                 
+                
                 let newCount = await syncCount(id, base, true);
                 if(display) display.innerText = newCount.toLocaleString();
-                 
+                
                 isProcessing = false;
             });
         }
@@ -743,15 +756,16 @@
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
         createCardAnim('anim-mit-ocw', 'dodeca');
-         
+        createCardAnim('anim-colab', 'knot');
+        
         // 非同步並行啟動計數器
         setupCounter('site_main', 1500, false);
 
-        // 已將新遊戲項目 game5 (base: 210) 放入清單中自動初始化
+        // 已將新遊戲與工具項目放入清單中自動初始化
         const leftItems = [
             { id: 'game5', base: 210 }, { id: 'game1', base: 320 }, 
             { id: 'game2', base: 185 }, { id: 'game3', base: 240 }, 
-            { id: 'game4', base: 410 }
+            { id: 'game4', base: 410 }, { id: 'colab', base: 350 }
         ];
         leftItems.forEach(item => setupCounter(item.id, item.base, true));
 
