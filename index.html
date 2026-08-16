@@ -471,6 +471,19 @@
     </div>
 
     <div class="right-column">
+        <!-- 新增：台北城市科技大學 卡片 -->
+        <div class="art-card">
+            <div class="app-header-flex">
+                <div class="card-bg-anim" id="anim-tpcu"></div>
+                <h3>台北城市科技大學</h3>
+            </div>
+            <div class="app-info">
+                <p>台北城市科技大學官方網站，提供優質高等職業教育、技職特色領域與前瞻產學合作資源。</p>
+            </div>
+            <div class="game-counter">🎓 瀏覽人次：<span id="tpcu-count">180</span></div>
+            <a href="https://www.tpcu.edu.tw/" id="tpcu-btn" target="_blank" class="btn btn-tool">前往官網</a>
+        </div>
+
         <h2 class="section-title">財金與工具專欄</h2>
 
         <!-- 新增的推薦 Netflix 影片卡片 -->
@@ -752,6 +765,7 @@
     window.onload = () => {
         // 優先載入 3D 視覺效果
         initHeaderArt();
+        createCardAnim('anim-tpcu', 'octa');
         createCardAnim('anim-silicon-chip', 'torus');
         createCardAnim('anim-time-camera', 'tetra');
         createCardAnim('anim-finance-note', 'ico');
@@ -770,6 +784,7 @@
         leftItems.forEach(item => setupCounter(item.id, item.base, true));
 
         const rightItems = [
+            { id: 'tpcu', base: 180 },
             { id: 'right1', base: 520 }, { id: 'right2', base: 280 },
             { id: 'right3', base: 195 }, { id: 'right4', base: 340 }
         ];
